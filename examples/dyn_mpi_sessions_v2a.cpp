@@ -254,8 +254,8 @@ int main(int argc, char* argv[])
     bool dynamic_proc = false, primary_proc = false, terminate = false;
 
     int rc_type, noutput;
-    char _keys[][MPI_MAX_INFO_KEY] = {"mpi_dyn", "mpi_primary", "next_main_pset", "mpi_included"}; // Is it a PSet representing dynamically added resources?; Am I the primary process of this PSet?; Name of the main PSet to use; Am I included in this PSet? 
-    char *keys[4] = {_keys[0], _keys[1], _keys[2], _keys[3]};
+    char _keys[][MPI_MAX_INFO_KEY] = {"next_main_pset"}; // Name of the main PSet to use 
+    char *keys[1] = {_keys[0]};
     char boolean_string[6];
     char *str;
     char *str_ptr;
@@ -281,8 +281,7 @@ int main(int argc, char* argv[])
     MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_RETURN, &session_handle);
 
     /* Get the data from our mpi://WORLD pset */
-    MPI_Session_get_pset_data (session_handle, mpi_world_pset, mpi_world_pset, (char **) keys, 2, true, &info);
-
+    MPI_Session_get_pset_info (session_handle, main_pset, &info);
 
     /* get value for the 'mpi_dyn' key -> if true, this process was added dynamically */
     MPI_Info_get(info, "mpi_dyn", 6, boolean_string, &flag);
@@ -294,7 +293,7 @@ int main(int argc, char* argv[])
         
         dynamic_proc = true;
         
-        MPI_Session_get_pset_data (session_handle, mpi_world_pset, mpi_world_pset, (char **) &keys[2], 1, true, &info);
+        MPI_Session_get_pset_data (session_handle, mpi_world_pset, mpi_world_pset, (char **) &keys[0], 1, true, &info);
         MPI_Info_get(info, "next_main_pset", MPI_MAX_PSET_NAME_LEN, main_pset, &flag);
 
         if(!flag){
@@ -305,7 +304,7 @@ int main(int argc, char* argv[])
         MPI_Info_free(&info);
 
         /* Get PSet data stored on main PSet */
-        MPI_Session_get_pset_data (session_handle, mpi_world_pset, main_pset, (char **) &keys[1], 1, true, &info);
+        MPI_Session_get_pset_info (session_handle, main_pset, &info);
     }
 
     /* Check if this proc is the 'primary process' of the main PSet */
@@ -391,29 +390,28 @@ int main(int argc, char* argv[])
 
             strcpy(delta_pset, output_psets[0]);
 
-            /* Retrieve data stored on the delta PSet */
-            MPI_Session_get_pset_data (session_handle, main_pset, output_psets[0], (char **) &keys[1], 3, true, &info);
-
-            /* Is proc included in the delta PSet? */
+            /* Is proc included in the delta PSet? If yes, need to terminate */
+            MPI_Session_get_pset_info (session_handle, output_psets[0], &info);
             MPI_Info_get(info, "mpi_included", 6, boolean_string, &flag);
-
-            /* This process is included in the delta PSet => it needs to terminate */
             if(0 == strcmp(boolean_string, "True")){
                 terminate = true;
             }
+            MPI_Info_free(&info);
 
-            /* Get the name of the new main PSet */
+            /* Get the name of the new main PSet stored on the delta PSet */
             strcpy(old_main_pset, main_pset);
+            MPI_Session_get_pset_data (session_handle, main_pset, output_psets[0], (char **) &keys[0], 1, true, &info);
             MPI_Info_get(info, "next_main_pset", MPI_MAX_PSET_NAME_LEN, main_pset, &flag); 
             
             if(!flag){
                 printf("could not find next_main_pset on PSet %s. This should never happen! Terminate.\n", main_pset);
+                return -1;
             }
 
             MPI_Info_free(&info);
 
             /* Is this proc the primary process of the new main PSet? Primary proc could have changed! */
-            MPI_Session_get_pset_data (session_handle, old_main_pset, main_pset, (char **) &keys[1], 1, true, &info);
+            MPI_Session_get_pset_info (session_handle, main_pset, &info);
             MPI_Info_get(info, "mpi_primary", 6, boolean_string, &flag);
             primary_proc = (0 == strcmp(boolean_string, "True"));
             MPI_Info_free(&info);

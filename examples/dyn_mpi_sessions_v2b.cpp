@@ -277,8 +277,8 @@ int main(int argc, char* argv[])
 
     int rc_type, noutput;
 
-    char _keys[][MPI_MAX_INFO_KEY] = {"mpi_dyn", "mpi_primary", "next_main_pset", "mpi_included"};
-    char *keys[4] = {_keys[0], _keys[1], _keys[2], _keys[3]};
+    char _keys[][MPI_MAX_INFO_KEY] = {"next_main_pset"}; // Name of the main PSet to use 
+    char *keys[1] = {_keys[0]};
     char boolean_string[6];
     char *str;
     char *str_ptr;
@@ -302,24 +302,13 @@ int main(int argc, char* argv[])
     strcpy(delta_pset, "");
 
     /* Initialize the session */
-    if(MPI_SUCCESS != (rc = MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_RETURN, &session))){
-        printf("MPI_Session_init returned error %d\n", rc);
-        return rc;
-    }
+    MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_RETURN, &session);
 
-    /* Get the some data from our mpi://WORLD pset */
-    if(MPI_SUCCESS != (rc = MPI_Session_get_pset_data (session, mpi_world_pset, mpi_world_pset, (char **) keys, 2, true, &info))){
-        printf("MPI_Session_get_pset_data returned error %d\n", rc);
-        MPI_Session_finalize(&session);
-        return rc;
-    }
+    /* Get the some info from our mpi://WORLD pset */
+    MPI_Session_get_pset_info (session, main_pset, &info);
 
     /* get value for the 'mpi_dyn' key*/
-    if(MPI_SUCCESS != (rc = MPI_Info_get(info, "mpi_dyn", 6, boolean_string, &flag))){
-        printf("MPI_Info_get returned error %d\n", rc);
-        MPI_Session_finalize(&session);
-        return rc;
-    }
+    MPI_Info_get(info, "mpi_dyn", 6, boolean_string, &flag);
 
     
     /* if mpi://WORLD is a dynamic PSet retrieve the name of the main PSet stored on our mpi://WORLD */
@@ -330,36 +319,22 @@ int main(int argc, char* argv[])
         dynamic_proc = true;
 
         
-        if(MPI_SUCCESS != (rc = MPI_Session_get_pset_data (session, mpi_world_pset, mpi_world_pset, (char **) &keys[2], 1, true, &info))){
-            printf("MPI_Session_get_pset_data1 returned error %d\n", rc);
-            MPI_Session_finalize(&session);
-            return rc;
-        }
-        if(MPI_SUCCESS != (rc = MPI_Info_get(info, "next_main_pset", MPI_MAX_PSET_NAME_LEN, main_pset, &flag))){
-            printf("MPI_Info_get returned error %d\n", rc);
-            MPI_Session_finalize(&session);
-            return rc;
-        }
+        MPI_Session_get_pset_data (session, mpi_world_pset, mpi_world_pset, (char **) &keys[0], 1, true, &info);
+
+        MPI_Info_get(info, "next_main_pset", MPI_MAX_PSET_NAME_LEN, main_pset, &flag);
         if(!flag){
             printf("No 'next_main_pset' was provided for dynamic process. Terminate.\n");
             MPI_Session_finalize(&session);
             return rc;
         }
         MPI_Info_free(&info);
-        if(MPI_SUCCESS != (rc = MPI_Session_get_pset_data (session, mpi_world_pset, main_pset, (char **) &keys[1], 1, true, &info))){
-            printf("MPI_Session_get_pset_data2 returned error %d\n", rc);
-            MPI_Session_finalize(&session);
-            return rc;
-        }
+        
+        MPI_Session_get_pset_info (session, main_pset, &info);
         
     }
 
     /* Check if this proc is the 'primary process' of the main PSet */
-    if(MPI_SUCCESS != (rc = MPI_Info_get(info, "mpi_primary", 6, boolean_string, &flag))){
-        printf("MPI_Info_get returned error %d\n", rc);
-        MPI_Session_finalize(&session);
-        return rc;
-    }
+    MPI_Info_get(info, "mpi_primary", 6, boolean_string, &flag);
 
     if(flag && 0 == strcmp(boolean_string, "True")){
         primary_proc = true;
@@ -369,26 +344,14 @@ int main(int argc, char* argv[])
     str_ptr = &main_pset[0];
 
     /* create a communicator from the main PSet*/
-    if(MPI_SUCCESS != (rc = comm_create_from_pset(session, main_pset, &comm, &num_procs, &rank))){
-        printf("create_comm_from_pset for PSet '%s' returned error %d\n", main_pset, rc);
-        MPI_Session_finalize(&session);
-        return rc;
-    }
+    comm_create_from_pset(session, main_pset, &comm, &num_procs, &rank);
 
     /* If this is a dynamic process, it needs to recv the current application data */
     if(dynamic_proc){
-        if(MPI_SUCCESS != (rc = recv_application_data(comm, &cur_iter, &cur_type, &cur_num_delta, &check_rc))){
-            printf("recv_application_data returned error %d\n", rc);
-            MPI_Session_finalize(&session);
-            return rc;
-        }
+        recv_application_data(comm, &cur_iter, &cur_type, &cur_num_delta, &check_rc);
 
         if(primary_proc){
-            if(MPI_SUCCESS != (rc = MPI_Session_dyn_finalize_psetop(session, main_pset))){
-                printf("MPI_Session_dyn_finalize_psetop returned error %d fro pset %s\n", rc, main_pset);
-                MPI_Session_finalize(&session);
-                return rc;                
-            }
+            MPI_Session_dyn_finalize_psetop(session, main_pset);
         }
     }
  
@@ -414,16 +377,10 @@ int main(int argc, char* argv[])
 
             rc_type = MPI_PSETOP_NULL;
             /* Check for a resource change related to the main PSet (e.g. from the RM) */
-            if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_query_psetop(session, main_pset, main_pset, &rc_handle))){
-                printf("MPI_Session_dyn_v2a_query_psetop for PSet '%s' returned error %d\n", main_pset, rc);
-                MPI_Session_finalize(&session);
-                return rc;                
-            }
+            MPI_Session_dyn_v2b_query_psetop(session, main_pset, main_pset, &rc_handle);
 
             if(MPI_RC_HANDLE_NULL != rc_handle){
-                if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_rc_handle_get_op_type(session, rc_handle, 0, &rc_type))){
-                    printf("Error get op type %d\n", rc);
-                }
+               MPI_Session_dyn_v2b_rc_handle_get_op_type(session, rc_handle, 0, &rc_type);
             }
             
             if(MPI_PSETOP_NULL == rc_type){
@@ -440,63 +397,36 @@ int main(int argc, char* argv[])
                     pset_array[1] = itoa("app://delta_pset/", rc_count);
                     pset_array[2] = itoa("app://main_pset/", rc_count);
 
-                    if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_rc_handle_create(session, &rc_handle))){
-                        printf("rc_handle_create eturned %d\n", rc);
-                        return rc;
-                    }
+                    MPI_Session_dyn_v2b_rc_handle_create(session, &rc_handle);
 
-                    if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_rc_handle_add_op(session, cur_type, pset_array, 1, &pset_array[1], 1, info, rc_handle))){
-                        printf("rc_handle_add_op returned %d\n", rc);
-                        return rc;
-                    }
+                    MPI_Session_dyn_v2b_rc_handle_add_op(session, cur_type, pset_array, 1, &pset_array[1], 1, info, rc_handle);
                     MPI_Info_free(&info);
 
 
-                    if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_rc_handle_add_op(session, cur_type == MPI_PSETOP_ADD ? MPI_PSETOP_UNION : MPI_PSETOP_DIFFERENCE, pset_array, 2, &pset_array[2], 1, MPI_INFO_NULL, rc_handle))){
-                        printf("rc_handle_add_op returned %d\n", rc);
-                        return rc;
-                    }
+                    MPI_Session_dyn_v2b_rc_handle_add_op(session, cur_type == MPI_PSETOP_ADD ? MPI_PSETOP_UNION : MPI_PSETOP_DIFFERENCE, pset_array, 2, &pset_array[2], 1, MPI_INFO_NULL, rc_handle);
 
                     MPI_Info_create(&info);
                     MPI_Info_set(info, "next_main_pset", pset_array[2]);
-                    
-                    if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_rc_handle_add_pset_info(session, rc_handle, pset_array[1], info))){
-                        printf("rc_handle_add_pset_info returned %d\n", rc);
-                        return rc;                       
-                    }
+                    MPI_Session_dyn_v2b_rc_handle_add_pset_info(session, rc_handle, pset_array[1], info);
+                    MPI_Info_free(&info);
 
-                    if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_psetop(session, rc_handle))){
-                        printf("Error in MPI_Session_dyn_request_res_change: %d\n", rc);
-                        return rc;
-                    }
+                    MPI_Session_dyn_v2b_psetop(session, rc_handle);
 
                     MPI_Session_dyn_v2b_rc_handle_free(session, &rc_handle);
 
                     free_string_array(pset_array, 3);
-                    MPI_Info_free(&info);
+                    
                 }
                 /* Now again query for the Set operation info */      
-                if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_query_psetop(session, main_pset, main_pset, &rc_handle))){
-                    printf("MPI_Session_dyn_v2a_query_psetop for PSet '%s' returned error %d\n", main_pset, rc);
-                    MPI_Session_finalize(&session);
-                    return rc;                
-                }
+                MPI_Session_dyn_v2b_query_psetop(session, main_pset, main_pset, &rc_handle);
 
                 if(MPI_RC_HANDLE_NULL != rc_handle){
 
-                    if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_rc_handle_get_op_type(session, rc_handle, 0, &rc_type))){
-                        printf("Error get op type %d\n", rc);
-                        return rc;
-                    }
+                    MPI_Session_dyn_v2b_rc_handle_get_op_type(session, rc_handle, 0, &rc_type);
 
-                    if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_rc_handle_get_output_pset(session, rc_handle, 0, 0, &pset_name_len, new_delta_pset))){
-                        printf("Error get num ops %d\n", rc);
-                        return rc;
-                    }
-                    if(MPI_SUCCESS != (rc = MPI_Session_dyn_v2b_rc_handle_free(session, &rc_handle))){
-                        printf("Error get rc handle free %d\n", rc);
-                        return rc;
-                    }
+                    MPI_Session_dyn_v2b_rc_handle_get_output_pset(session, rc_handle, 0, 0, &pset_name_len, new_delta_pset);
+                    
+                    MPI_Session_dyn_v2b_rc_handle_free(session, &rc_handle);
 
                 }
             }
@@ -509,46 +439,29 @@ int main(int argc, char* argv[])
             rc_count ++;
             strcpy(delta_pset, new_delta_pset);
 
-            /* Retrieve data stored on the delta PSet */
-            if(MPI_SUCCESS != (rc = MPI_Session_get_pset_data (session, main_pset, new_delta_pset, (char **) &keys[1], 3, true, &info))){
-                printf("MPI_Session_get_pset_data3 returned error %d\n", rc);
-                MPI_Session_finalize(&session);
-                return rc;
-            }
-
-            if(MPI_SUCCESS != (rc = MPI_Info_get(info, "mpi_included", 6, boolean_string, &flag)) || !flag ){
-                printf("MPI_Info_get returned error %d\n", rc);
-                MPI_Session_finalize(&session);
-                return rc;
-            }
-
+            /* Check if proc is included in delta PSet */
+            MPI_Session_get_pset_info (session, new_delta_pset, &info);
+            MPI_Info_get(info, "mpi_included", 6, boolean_string, &flag);
             if(0 == strcmp(boolean_string, "True")){
                 terminate = true;
             }
+            MPI_Info_free(&info);
 
+            /* Retireve the name of the next main PSet stored on the delta PSet */
             strcpy(old_main_pset, main_pset);
-
-            if(MPI_SUCCESS != (rc = MPI_Info_get(info, "next_main_pset", MPI_MAX_PSET_NAME_LEN, main_pset, &flag)) || !flag){
+            MPI_Session_get_pset_data(session, main_pset, new_delta_pset, (char **) &keys[0], 1, true, &info);
+            MPI_Info_get(info, "next_main_pset", MPI_MAX_PSET_NAME_LEN, main_pset, &flag);
+            if(!flag){
                 printf("MPI_Info_get failed\n");
                 MPI_Session_finalize(&session);
                 return rc;
             }
             MPI_Info_free(&info);
 
-            if(MPI_SUCCESS != (rc = MPI_Session_get_pset_data (session, MPI_PSETOP_SUB == rc_type ? main_pset : old_main_pset, main_pset, (char **) &keys[1], 1, true, &info))){
-                printf("MPI_Session_get_pset_data4 returned error %d\n", rc);
-                MPI_Session_finalize(&session);
-                return rc;
-            }
-
-            if(MPI_SUCCESS != (rc = MPI_Info_get(info, "mpi_primary", 6, boolean_string, &flag)) || !flag){
-                printf("MPI_Info_get failed\n");
-                MPI_Session_finalize(&session);
-                return rc;
-            }
-
+            /* Check for new primary proc */
+            MPI_Session_get_pset_info (session, main_pset, &info);
+            MPI_Info_get(info, "mpi_primary", 6, boolean_string, &flag);
             MPI_Info_free(&info);
-
             /* Primary proc could have changed */
             primary_proc = (0 == strcmp(boolean_string, "True"));
 
@@ -558,33 +471,17 @@ int main(int argc, char* argv[])
             }
 
             /* Disconnect from the old communicator */
-            if(MPI_SUCCESS != (rc = MPI_Comm_disconnect(&comm))){
-                printf("create_comm_disconnect returned error %d\n", rc);
-                MPI_Session_finalize(&session);
-                return rc;
-            }
+            MPI_Comm_disconnect(&comm);
             
             /* create a cnew ommunicator from the new main PSet*/
-            if(MPI_SUCCESS != (rc = comm_create_from_pset(session, main_pset, &comm, &num_procs, &rank))){
-                printf("create_comm_from_pset for PSet '%s' returned error %d\n", main_pset, rc);
-                MPI_Session_finalize(&session);
-                return rc;
-            }
+            comm_create_from_pset(session, main_pset, &comm, &num_procs, &rank);
 
             /* Update and send the application parameters */
             eval_parameters(num_procs, &cur_type, &cur_num_delta, &check_rc);
-            if(MPI_SUCCESS != (rc = send_application_data(comm, rank, cur_iter, cur_type, cur_num_delta, check_rc))){
-                printf("MPI_Comm_disconnect returned error %d\n", rc);
-                MPI_Session_finalize(&session);
-                return rc;
-            }
+            send_application_data(comm, rank, cur_iter, cur_type, cur_num_delta, check_rc);
 
             if(primary_proc){
-                if(MPI_SUCCESS != (rc = MPI_Session_dyn_finalize_psetop(session, old_main_pset))){
-                    printf("MPI_Session_dyn_finalize_psetop returned error %d fro pset %s\n", rc, main_pset);
-                    MPI_Session_finalize(&session);
-                    return rc;                
-                }
+                MPI_Session_dyn_finalize_psetop(session, old_main_pset);
             }
 
             /* Reset the counter since last resource change */
@@ -596,18 +493,10 @@ int main(int argc, char* argv[])
     } /* END OF MAIN APPLICATION LOOP */
 
     /* Disconnect from the communicator */
-    if(MPI_SUCCESS != (rc = MPI_Comm_disconnect(&comm))){
-        printf("MPI_Comm_disconnect returned error %d\n", rc);
-        MPI_Session_finalize(&session);
-        return rc;
-    }
+    MPI_Comm_disconnect(&comm);
 
     /* Finalize the sesison */
-    if(MPI_SUCCESS != (rc = MPI_Session_finalize(&session))){
-        printf("MPI_Session_finalize returned error %d\n", rc);
-        MPI_Session_finalize(&session);
-        return rc;        
-    }
+    MPI_Session_finalize(&session);
 
     if(0 == rank){
         printf("finished becnhmark sucessfully!\n");
