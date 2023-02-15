@@ -1,0 +1,21 @@
+nodelist of this job (regex): n[02-05]
+Generated hostfile-3.txt:
+n02
+n03
+n04
+n05
+--------------------------------------------------------------------------
+Warning: Could not find the environment variable: DYNMPI_BASE
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+PRTE has lost communication with a remote daemon.
+
+  HNP daemon   : [prterun-n02-5574@0,0] on node n02
+  Remote daemon: [prterun-n02-5574@0,2] on node n04
+
+This is usually due to either a failure of the TCP network
+connection to the node, or possibly an internal failure of
+the daemon itself. We cannot recover from this failure, and
+therefore will terminate the job.
+--------------------------------------------------------------------------
+slurmstepd: error: *** JOB 3 ON n02 CANCELLED AT 2023-01-31T17:14:33 ***

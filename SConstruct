@@ -19,7 +19,9 @@ vars.AddVariables(
   EnumVariable( 'example', 'which application to build', 'mpidynres2d',
                 allowed_values=(
                     'mpidynres2d',
-                    'DynMPISessions_v2a', 'DynMPISessions_v2a_nb')
+                    'DynMPISessions_v2a', 'DynMPISessions_v2a_nb',
+                    'DynMPISessions_v2b', 'DynMPISessions_v2b_nb'
+                    )
               ),
 
   EnumVariable( 'compileMode', 'whether to compile with debug options', 'release',
@@ -116,7 +118,13 @@ env.src_files = []
 
 if env['example'] == 'DynMPISessions_v2a':
   sourceFiles = ['examples/dyn_mpi_sessions_v2a.cpp']
-  
+elif env['example'] == 'DynMPISessions_v2a_nb':
+  sourceFiles = ['examples/dyn_mpi_sessions_v2a_nb.cpp']
+if env['example'] == 'DynMPISessions_v2b':
+  sourceFiles = ['examples/dyn_mpi_sessions_v2b.cpp']
+elif env['example'] == 'DynMPISessions_v2b_nb':
+  sourceFiles = ['examples/dyn_mpi_sessions_v2b_nb.cpp']
+
 for i in sourceFiles:
   env.src_files.append(env.Object(i))
 

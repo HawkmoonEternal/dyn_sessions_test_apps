@@ -254,7 +254,6 @@ int main(int argc, char* argv[])
     bool dynamic_proc = false, primary_proc = false, terminate = false;
 
     int rc_type, noutput;
-
     char _keys[][MPI_MAX_INFO_KEY] = {"mpi_dyn", "mpi_primary", "next_main_pset", "mpi_included"}; // Is it a PSet representing dynamically added resources?; Am I the primary process of this PSet?; Name of the main PSet to use; Am I included in this PSet? 
     char *keys[4] = {_keys[0], _keys[1], _keys[2], _keys[3]};
     char boolean_string[6];
@@ -269,6 +268,7 @@ int main(int argc, char* argv[])
     MPI_Comm comm = MPI_COMM_NULL;
     MPI_Session session_handle = MPI_SESSION_NULL;
     MPI_Info info = MPI_INFO_NULL;
+
 
     /* Parse the command line arguments*/
 	parse_arguments(argc, argv);
@@ -315,7 +315,6 @@ int main(int argc, char* argv[])
     }
 
     MPI_Info_free(&info);
-
     /* create a communicator from the main PSet*/
     comm_create_from_pset(session_handle, main_pset, &comm, &num_procs, &rank);
 
@@ -365,7 +364,6 @@ int main(int argc, char* argv[])
                     /* Request ADD / SUB operation*/
                     op = cur_type == MPI_PSETOP_ADD ? MPI_PSETOP_GROW : MPI_PSETOP_SHRINK;
                     MPI_Session_dyn_v2a_psetop(session_handle, &op, input_psets, 1, &output_psets, &noutput, info);
-
                     MPI_Info_free(&info);
                     
                     if(MPI_PSETOP_NULL != op){
@@ -383,7 +381,7 @@ int main(int argc, char* argv[])
                 /* Now again query for the Set operation info */      
                 MPI_Session_dyn_v2a_query_psetop(session_handle, main_pset, main_pset, &rc_type, &output_psets, &noutput);
             }
-            usleep(500000);
+
             /* Continue work if no new PSETOP was found */
             if(MPI_PSETOP_NULL == rc_type || 0 == strcmp(delta_pset, output_psets[0])){
                 iters_since_last_change = 0;
@@ -426,7 +424,6 @@ int main(int argc, char* argv[])
 
             /* Disconnect from the old communicator */
             MPI_Comm_disconnect(&comm);
-
             /* create a cnew ommunicator from the new main PSet*/
             comm_create_from_pset(session_handle, main_pset, &comm, &num_procs, &rank);
 

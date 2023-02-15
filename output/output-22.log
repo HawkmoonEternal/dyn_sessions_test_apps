@@ -1,0 +1,314 @@
+nodelist of this job (regex): n[02-05]
+Generated hostfile-22.txt:
+n02
+n03
+n04
+n05
+
+========================   JOB MAP   ========================
+Data for JOB prterun-n02-2375@1 offset 0 Total slots allocated 32
+    Mapping policy: BYCORE:NOOVERSUBSCRIBE  Ranking policy: SLOT Binding policy: NONE
+    Cpu set: N/A  PPR: N/A  Cpus-per-rank: N/A  Cpu Type: CORE
+
+
+Data for node: n02	Num slots: 8	Max slots: 0	Num procs: 8
+        Process jobid: prterun-n02-2375@1 App: 0 Process rank: 0 Bound: N/A
+        Process jobid: prterun-n02-2375@1 App: 0 Process rank: 1 Bound: N/A
+        Process jobid: prterun-n02-2375@1 App: 0 Process rank: 2 Bound: N/A
+        Process jobid: prterun-n02-2375@1 App: 0 Process rank: 3 Bound: N/A
+        Process jobid: prterun-n02-2375@1 App: 0 Process rank: 4 Bound: N/A
+        Process jobid: prterun-n02-2375@1 App: 0 Process rank: 5 Bound: N/A
+        Process jobid: prterun-n02-2375@1 App: 0 Process rank: 6 Bound: N/A
+        Process jobid: prterun-n02-2375@1 App: 0 Process rank: 7 Bound: N/A
+
+=============================================================
+Start of iteration 1 with 8 processes in PSet mpi://WORLD
+Start of iteration 2 with 8 processes in PSet mpi://WORLD
+Start of iteration 3 with 8 processes in PSet mpi://WORLD
+Start of iteration 4 with 8 processes in PSet mpi://WORLD
+Start of iteration 5 with 8 processes in PSet mpi://WORLD
+Start of iteration 6 with 8 processes in PSet mpi://WORLD
+Start of iteration 7 with 8 processes in PSet mpi://WORLD
+Start of iteration 8 with 8 processes in PSet mpi://WORLD
+Start of iteration 9 with 8 processes in PSet mpi://WORLD
+Start of iteration 10 with 8 processes in PSet mpi://WORLD
+Start of iteration 11 with 16 processes in PSet prrte://base_name/1
+Start of iteration 12 with 16 processes in PSet prrte://base_name/1
+Start of iteration 13 with 16 processes in PSet prrte://base_name/1
+Start of iteration 14 with 16 processes in PSet prrte://base_name/1
+Start of iteration 15 with 16 processes in PSet prrte://base_name/1
+Start of iteration 16 with 16 processes in PSet prrte://base_name/1
+Start of iteration 17 with 16 processes in PSet prrte://base_name/1
+Start of iteration 18 with 16 processes in PSet prrte://base_name/1
+Start of iteration 19 with 16 processes in PSet prrte://base_name/1
+Start of iteration 20 with 16 processes in PSet prrte://base_name/1
+Start of iteration 21 with 24 processes in PSet prrte://base_name/3
+Start of iteration 22 with 24 processes in PSet prrte://base_name/3
+Start of iteration 23 with 24 processes in PSet prrte://base_name/3
+Start of iteration 24 with 24 processes in PSet prrte://base_name/3
+Start of iteration 25 with 24 processes in PSet prrte://base_name/3
+Start of iteration 26 with 24 processes in PSet prrte://base_name/3
+Start of iteration 27 with 24 processes in PSet prrte://base_name/3
+Start of iteration 28 with 24 processes in PSet prrte://base_name/3
+Start of iteration 29 with 24 processes in PSet prrte://base_name/3
+Start of iteration 30 with 24 processes in PSet prrte://base_name/3
+Start of iteration 31 with 32 processes in PSet prrte://base_name/5
+Start of iteration 32 with 32 processes in PSet prrte://base_name/5
+Start of iteration 33 with 32 processes in PSet prrte://base_name/5
+Start of iteration 34 with 32 processes in PSet prrte://base_name/5
+Start of iteration 35 with 32 processes in PSet prrte://base_name/5
+Start of iteration 36 with 32 processes in PSet prrte://base_name/5
+Start of iteration 37 with 32 processes in PSet prrte://base_name/5
+Start of iteration 38 with 32 processes in PSet prrte://base_name/5
+Start of iteration 39 with 32 processes in PSet prrte://base_name/5
+Start of iteration 40 with 32 processes in PSet prrte://base_name/5
+Start of iteration 41 with 32 processes in PSet prrte://base_name/5
+Start of iteration 42 with 32 processes in PSet prrte://base_name/5
+Start of iteration 43 with 32 processes in PSet prrte://base_name/5
+Start of iteration 44 with 32 processes in PSet prrte://base_name/5
+Start of iteration 45 with 32 processes in PSet prrte://base_name/5
+Start of iteration 46 with 32 processes in PSet prrte://base_name/5
+Start of iteration 47 with 32 processes in PSet prrte://base_name/5
+Start of iteration 48 with 32 processes in PSet prrte://base_name/5
+Start of iteration 49 with 32 processes in PSet prrte://base_name/5
+Start of iteration 50 with 32 processes in PSet prrte://base_name/5
+Start of iteration 51 with 32 processes in PSet prrte://base_name/5
+Start of iteration 52 with 32 processes in PSet prrte://base_name/5
+Start of iteration 53 with 32 processes in PSet prrte://base_name/5
+Start of iteration 54 with 32 processes in PSet prrte://base_name/5
+Start of iteration 55 with 32 processes in PSet prrte://base_name/5
+Start of iteration 56 with 32 processes in PSet prrte://base_name/5
+Start of iteration 57 with 32 processes in PSet prrte://base_name/5
+Start of iteration 58 with 32 processes in PSet prrte://base_name/5
+Start of iteration 59 with 32 processes in PSet prrte://base_name/5
+Start of iteration 60 with 32 processes in PSet prrte://base_name/5
+Start of iteration 61 with 32 processes in PSet prrte://base_name/5
+Start of iteration 62 with 32 processes in PSet prrte://base_name/5
+Start of iteration 63 with 32 processes in PSet prrte://base_name/5
+Start of iteration 64 with 32 processes in PSet prrte://base_name/5
+Start of iteration 65 with 32 processes in PSet prrte://base_name/5
+Start of iteration 66 with 32 processes in PSet prrte://base_name/5
+Start of iteration 67 with 32 processes in PSet prrte://base_name/5
+Start of iteration 68 with 32 processes in PSet prrte://base_name/5
+Start of iteration 69 with 32 processes in PSet prrte://base_name/5
+Start of iteration 70 with 32 processes in PSet prrte://base_name/5
+Start of iteration 71 with 32 processes in PSet prrte://base_name/5
+Start of iteration 72 with 32 processes in PSet prrte://base_name/5
+Start of iteration 73 with 32 processes in PSet prrte://base_name/5
+Start of iteration 74 with 32 processes in PSet prrte://base_name/5
+Start of iteration 75 with 32 processes in PSet prrte://base_name/5
+Start of iteration 76 with 32 processes in PSet prrte://base_name/5
+Start of iteration 77 with 32 processes in PSet prrte://base_name/5
+Start of iteration 78 with 32 processes in PSet prrte://base_name/5
+Start of iteration 79 with 32 processes in PSet prrte://base_name/5
+Start of iteration 80 with 32 processes in PSet prrte://base_name/5
+Start of iteration 81 with 32 processes in PSet prrte://base_name/5
+Start of iteration 82 with 32 processes in PSet prrte://base_name/5
+Start of iteration 83 with 32 processes in PSet prrte://base_name/5
+Start of iteration 84 with 32 processes in PSet prrte://base_name/5
+Start of iteration 85 with 32 processes in PSet prrte://base_name/5
+Start of iteration 86 with 32 processes in PSet prrte://base_name/5
+Start of iteration 87 with 32 processes in PSet prrte://base_name/5
+Start of iteration 88 with 32 processes in PSet prrte://base_name/5
+Start of iteration 89 with 32 processes in PSet prrte://base_name/5
+Start of iteration 90 with 32 processes in PSet prrte://base_name/5
+Start of iteration 91 with 32 processes in PSet prrte://base_name/5
+Start of iteration 92 with 32 processes in PSet prrte://base_name/5
+Start of iteration 93 with 32 processes in PSet prrte://base_name/5
+Start of iteration 94 with 32 processes in PSet prrte://base_name/5
+Start of iteration 95 with 32 processes in PSet prrte://base_name/5
+Start of iteration 96 with 32 processes in PSet prrte://base_name/5
+Start of iteration 97 with 32 processes in PSet prrte://base_name/5
+Start of iteration 98 with 32 processes in PSet prrte://base_name/5
+Start of iteration 99 with 32 processes in PSet prrte://base_name/5
+Start of iteration 100 with 32 processes in PSet prrte://base_name/5
+Start of iteration 101 with 32 processes in PSet prrte://base_name/5
+Start of iteration 102 with 32 processes in PSet prrte://base_name/5
+Start of iteration 103 with 32 processes in PSet prrte://base_name/5
+Start of iteration 104 with 32 processes in PSet prrte://base_name/5
+Start of iteration 105 with 32 processes in PSet prrte://base_name/5
+Start of iteration 106 with 32 processes in PSet prrte://base_name/5
+Start of iteration 107 with 32 processes in PSet prrte://base_name/5
+Start of iteration 108 with 32 processes in PSet prrte://base_name/5
+Start of iteration 109 with 32 processes in PSet prrte://base_name/5
+Start of iteration 110 with 32 processes in PSet prrte://base_name/5
+Start of iteration 111 with 32 processes in PSet prrte://base_name/5
+Start of iteration 112 with 32 processes in PSet prrte://base_name/5
+Start of iteration 113 with 32 processes in PSet prrte://base_name/5
+Start of iteration 114 with 32 processes in PSet prrte://base_name/5
+Start of iteration 115 with 32 processes in PSet prrte://base_name/5
+Start of iteration 116 with 32 processes in PSet prrte://base_name/5
+Start of iteration 117 with 32 processes in PSet prrte://base_name/5
+Start of iteration 118 with 32 processes in PSet prrte://base_name/5
+Start of iteration 119 with 32 processes in PSet prrte://base_name/5
+Start of iteration 120 with 32 processes in PSet prrte://base_name/5
+finished becnhmark sucessfully!
+
+========================   JOB MAP   ========================
+Data for JOB prterun-n02-2403@1 offset 0 Total slots allocated 32
+    Mapping policy: BYCORE:NOOVERSUBSCRIBE  Ranking policy: SLOT Binding policy: NONE
+    Cpu set: N/A  PPR: N/A  Cpus-per-rank: N/A  Cpu Type: CORE
+
+
+Data for node: n02	Num slots: 8	Max slots: 0	Num procs: 8
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 0 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 1 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 2 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 3 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 4 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 5 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 6 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 7 Bound: N/A
+
+Data for node: n03	Num slots: 8	Max slots: 0	Num procs: 8
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 8 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 9 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 10 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 11 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 12 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 13 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 14 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 15 Bound: N/A
+
+Data for node: n04	Num slots: 8	Max slots: 0	Num procs: 8
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 16 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 17 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 18 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 19 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 20 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 21 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 22 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 23 Bound: N/A
+
+Data for node: n05	Num slots: 8	Max slots: 0	Num procs: 8
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 24 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 25 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 26 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 27 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 28 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 29 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 30 Bound: N/A
+        Process jobid: prterun-n02-2403@1 App: 0 Process rank: 31 Bound: N/A
+
+=============================================================
+Start of iteration 1 with 32 processes in PSet mpi://WORLD
+Start of iteration 2 with 32 processes in PSet mpi://WORLD
+Start of iteration 3 with 32 processes in PSet mpi://WORLD
+Start of iteration 4 with 32 processes in PSet mpi://WORLD
+Start of iteration 5 with 32 processes in PSet mpi://WORLD
+Start of iteration 6 with 32 processes in PSet mpi://WORLD
+Start of iteration 7 with 32 processes in PSet mpi://WORLD
+Start of iteration 8 with 32 processes in PSet mpi://WORLD
+Start of iteration 9 with 32 processes in PSet mpi://WORLD
+Start of iteration 10 with 32 processes in PSet mpi://WORLD
+Start of iteration 11 with 24 processes in PSet prrte://base_name/1
+Start of iteration 12 with 24 processes in PSet prrte://base_name/1
+Start of iteration 13 with 24 processes in PSet prrte://base_name/1
+Start of iteration 14 with 24 processes in PSet prrte://base_name/1
+Start of iteration 15 with 24 processes in PSet prrte://base_name/1
+Start of iteration 16 with 24 processes in PSet prrte://base_name/1
+Start of iteration 17 with 24 processes in PSet prrte://base_name/1
+Start of iteration 18 with 24 processes in PSet prrte://base_name/1
+Start of iteration 19 with 24 processes in PSet prrte://base_name/1
+Start of iteration 20 with 24 processes in PSet prrte://base_name/1
+Start of iteration 21 with 16 processes in PSet prrte://base_name/3
+Start of iteration 22 with 16 processes in PSet prrte://base_name/3
+Start of iteration 23 with 16 processes in PSet prrte://base_name/3
+Start of iteration 24 with 16 processes in PSet prrte://base_name/3
+Start of iteration 25 with 16 processes in PSet prrte://base_name/3
+Start of iteration 26 with 16 processes in PSet prrte://base_name/3
+Start of iteration 27 with 16 processes in PSet prrte://base_name/3
+Start of iteration 28 with 16 processes in PSet prrte://base_name/3
+Start of iteration 29 with 16 processes in PSet prrte://base_name/3
+Start of iteration 30 with 16 processes in PSet prrte://base_name/3
+Start of iteration 31 with 8 processes in PSet prrte://base_name/5
+Start of iteration 32 with 8 processes in PSet prrte://base_name/5
+Start of iteration 33 with 8 processes in PSet prrte://base_name/5
+Start of iteration 34 with 8 processes in PSet prrte://base_name/5
+Start of iteration 35 with 8 processes in PSet prrte://base_name/5
+Start of iteration 36 with 8 processes in PSet prrte://base_name/5
+Start of iteration 37 with 8 processes in PSet prrte://base_name/5
+Start of iteration 38 with 8 processes in PSet prrte://base_name/5
+Start of iteration 39 with 8 processes in PSet prrte://base_name/5
+Start of iteration 40 with 8 processes in PSet prrte://base_name/5
+Start of iteration 41 with 8 processes in PSet prrte://base_name/5
+Start of iteration 42 with 8 processes in PSet prrte://base_name/5
+Start of iteration 43 with 8 processes in PSet prrte://base_name/5
+Start of iteration 44 with 8 processes in PSet prrte://base_name/5
+Start of iteration 45 with 8 processes in PSet prrte://base_name/5
+Start of iteration 46 with 8 processes in PSet prrte://base_name/5
+Start of iteration 47 with 8 processes in PSet prrte://base_name/5
+Start of iteration 48 with 8 processes in PSet prrte://base_name/5
+Start of iteration 49 with 8 processes in PSet prrte://base_name/5
+Start of iteration 50 with 8 processes in PSet prrte://base_name/5
+Start of iteration 51 with 8 processes in PSet prrte://base_name/5
+Start of iteration 52 with 8 processes in PSet prrte://base_name/5
+Start of iteration 53 with 8 processes in PSet prrte://base_name/5
+Start of iteration 54 with 8 processes in PSet prrte://base_name/5
+Start of iteration 55 with 8 processes in PSet prrte://base_name/5
+Start of iteration 56 with 8 processes in PSet prrte://base_name/5
+Start of iteration 57 with 8 processes in PSet prrte://base_name/5
+Start of iteration 58 with 8 processes in PSet prrte://base_name/5
+Start of iteration 59 with 8 processes in PSet prrte://base_name/5
+Start of iteration 60 with 8 processes in PSet prrte://base_name/5
+Start of iteration 61 with 8 processes in PSet prrte://base_name/5
+Start of iteration 62 with 8 processes in PSet prrte://base_name/5
+Start of iteration 63 with 8 processes in PSet prrte://base_name/5
+Start of iteration 64 with 8 processes in PSet prrte://base_name/5
+Start of iteration 65 with 8 processes in PSet prrte://base_name/5
+Start of iteration 66 with 8 processes in PSet prrte://base_name/5
+Start of iteration 67 with 8 processes in PSet prrte://base_name/5
+Start of iteration 68 with 8 processes in PSet prrte://base_name/5
+Start of iteration 69 with 8 processes in PSet prrte://base_name/5
+Start of iteration 70 with 8 processes in PSet prrte://base_name/5
+Start of iteration 71 with 8 processes in PSet prrte://base_name/5
+Start of iteration 72 with 8 processes in PSet prrte://base_name/5
+Start of iteration 73 with 8 processes in PSet prrte://base_name/5
+Start of iteration 74 with 8 processes in PSet prrte://base_name/5
+Start of iteration 75 with 8 processes in PSet prrte://base_name/5
+Start of iteration 76 with 8 processes in PSet prrte://base_name/5
+Start of iteration 77 with 8 processes in PSet prrte://base_name/5
+Start of iteration 78 with 8 processes in PSet prrte://base_name/5
+Start of iteration 79 with 8 processes in PSet prrte://base_name/5
+Start of iteration 80 with 8 processes in PSet prrte://base_name/5
+Start of iteration 81 with 8 processes in PSet prrte://base_name/5
+Start of iteration 82 with 8 processes in PSet prrte://base_name/5
+Start of iteration 83 with 8 processes in PSet prrte://base_name/5
+Start of iteration 84 with 8 processes in PSet prrte://base_name/5
+Start of iteration 85 with 8 processes in PSet prrte://base_name/5
+Start of iteration 86 with 8 processes in PSet prrte://base_name/5
+Start of iteration 87 with 8 processes in PSet prrte://base_name/5
+Start of iteration 88 with 8 processes in PSet prrte://base_name/5
+Start of iteration 89 with 8 processes in PSet prrte://base_name/5
+Start of iteration 90 with 8 processes in PSet prrte://base_name/5
+Start of iteration 91 with 8 processes in PSet prrte://base_name/5
+Start of iteration 92 with 8 processes in PSet prrte://base_name/5
+Start of iteration 93 with 8 processes in PSet prrte://base_name/5
+Start of iteration 94 with 8 processes in PSet prrte://base_name/5
+Start of iteration 95 with 8 processes in PSet prrte://base_name/5
+Start of iteration 96 with 8 processes in PSet prrte://base_name/5
+Start of iteration 97 with 8 processes in PSet prrte://base_name/5
+Start of iteration 98 with 8 processes in PSet prrte://base_name/5
+Start of iteration 99 with 8 processes in PSet prrte://base_name/5
+Start of iteration 100 with 8 processes in PSet prrte://base_name/5
+Start of iteration 101 with 8 processes in PSet prrte://base_name/5
+Start of iteration 102 with 8 processes in PSet prrte://base_name/5
+Start of iteration 103 with 8 processes in PSet prrte://base_name/5
+Start of iteration 104 with 8 processes in PSet prrte://base_name/5
+Start of iteration 105 with 8 processes in PSet prrte://base_name/5
+Start of iteration 106 with 8 processes in PSet prrte://base_name/5
+Start of iteration 107 with 8 processes in PSet prrte://base_name/5
+Start of iteration 108 with 8 processes in PSet prrte://base_name/5
+Start of iteration 109 with 8 processes in PSet prrte://base_name/5
+Start of iteration 110 with 8 processes in PSet prrte://base_name/5
+Start of iteration 111 with 8 processes in PSet prrte://base_name/5
+Start of iteration 112 with 8 processes in PSet prrte://base_name/5
+Start of iteration 113 with 8 processes in PSet prrte://base_name/5
+Start of iteration 114 with 8 processes in PSet prrte://base_name/5
+Start of iteration 115 with 8 processes in PSet prrte://base_name/5
+Start of iteration 116 with 8 processes in PSet prrte://base_name/5
+Start of iteration 117 with 8 processes in PSet prrte://base_name/5
+Start of iteration 118 with 8 processes in PSet prrte://base_name/5
+Start of iteration 119 with 8 processes in PSet prrte://base_name/5
+Start of iteration 120 with 8 processes in PSet prrte://base_name/5
+finished becnhmark sucessfully!

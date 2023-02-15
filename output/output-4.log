@@ -1,0 +1,18 @@
+nodelist of this job (regex): n[02-05]
+Generated hostfile-4.txt:
+n02
+n03
+n04
+n05
+slurmstepd: error: *** JOB 4 ON n02 CANCELLED AT 2023-01-31T17:17:21 DUE TO TIME LIMIT ***
+--------------------------------------------------------------------------
+PRTE has lost communication with a remote daemon.
+
+  HNP daemon   : [prterun-n02-5602@0,0] on node n02
+  Remote daemon: [prterun-n02-5602@0,1] on node n03
+
+This is usually due to either a failure of the TCP network
+connection to the node, or possibly an internal failure of
+the daemon itself. We cannot recover from this failure, and
+therefore will terminate the job.
+--------------------------------------------------------------------------
