@@ -278,9 +278,9 @@ int main(int argc, char* argv[])
     strcpy(delta_pset, "");
 
     /* Initialize the session */
-    MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_RETURN, &session_handle);
+    MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_ARE_FATAL, &session_handle);
 
-    /* Get the data from our mpi://WORLD pset */
+    /* Get the info from our mpi://WORLD pset */
     MPI_Session_get_pset_info (session_handle, main_pset, &info);
 
     /* get value for the 'mpi_dyn' key -> if true, this process was added dynamically */
@@ -327,7 +327,6 @@ int main(int argc, char* argv[])
             MPI_Session_dyn_finalize_psetop(session_handle, main_pset);
         }
     }
-
     
     /* MAIN APPLICATION LOOP */
     while(cur_iter++ < ITER_MAX){
