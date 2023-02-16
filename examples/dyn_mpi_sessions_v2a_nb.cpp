@@ -299,7 +299,7 @@ int main(int argc, char* argv[])
     strcpy(delta_pset, "");
 
     /* Initialize the session */
-    MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_RETURN, &session_handle);
+    MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_ARE_FATAL, &session_handle);
 
 
     /* Get the some data from our mpi://WORLD pset */

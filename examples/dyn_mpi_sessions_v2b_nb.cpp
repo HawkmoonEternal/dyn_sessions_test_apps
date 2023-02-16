@@ -305,7 +305,7 @@ int main(int argc, char* argv[])
     strcpy(delta_pset, "");
 
     /* Initialize the session */
-    MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_RETURN, &session);
+    MPI_Session_init(MPI_INFO_NULL, MPI_ERRORS_ARE_FATAL, &session);
 
     /* Get the some data from our mpi://WORLD pset */
     MPI_Session_get_pset_info (session, main_pset, &info);
