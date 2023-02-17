@@ -434,7 +434,7 @@ int main(int argc, char* argv[])
 
                 }
             }
-
+            
             if(MPI_PSETOP_NULL == rc_type || 0 == strcmp(delta_pset, new_delta_pset)){
                 iters_since_last_change = 0;
                 continue;

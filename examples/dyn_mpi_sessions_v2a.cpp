@@ -384,15 +384,15 @@ int main(int argc, char* argv[])
                 /* Now again query for the Set operation info */      
                 MPI_Session_dyn_v2a_query_psetop(session_handle, main_pset, main_pset, &rc_type, &output_psets, &noutput);
             }
-
+            
             /* Continue work if no new PSETOP was found */
             if(MPI_PSETOP_NULL == rc_type || 0 == strcmp(delta_pset, output_psets[0])){
                 iters_since_last_change = 0;
                 continue;
             }
-
-            strcpy(delta_pset, output_psets[0]);
-
+            
+            strcpy(delta_pset, output_psets[0]);            
+            
             /* Is proc included in the delta PSet? If yes, need to terminate */
             MPI_Session_get_pset_info (session_handle, output_psets[0], &info);
             MPI_Info_get(info, "mpi_included", 6, boolean_string, &flag);
@@ -405,14 +405,14 @@ int main(int argc, char* argv[])
             strcpy(old_main_pset, main_pset);
             MPI_Session_get_pset_data (session_handle, main_pset, output_psets[0], (char **) &keys[0], 1, true, &info);
             MPI_Info_get(info, "next_main_pset", MPI_MAX_PSET_NAME_LEN, main_pset, &flag); 
-            
+            //free_string_array(output_psets, noutput);
+            //printf("Rank %d, after main_pset=%s\n", rank, main_pset);
             if(!flag){
                 printf("could not find next_main_pset on PSet %s. This should never happen! Terminate.\n", main_pset);
                 return -1;
             }
 
             MPI_Info_free(&info);
-
             /* Is this proc the primary process of the new main PSet? Primary proc could have changed! */
             MPI_Session_get_pset_info (session_handle, main_pset, &info);
             MPI_Info_get(info, "mpi_primary", 6, boolean_string, &flag);
@@ -423,12 +423,12 @@ int main(int argc, char* argv[])
             if(terminate){
                 break;
             }
-
             /* Disconnect from the old communicator */
             MPI_Comm_disconnect(&comm);
+            
             /* create a cnew ommunicator from the new main PSet*/
             comm_create_from_pset(session_handle, main_pset, &comm, &num_procs, &rank);
-
+            
             /* Update and send the application parameters */
             eval_parameters(num_procs, &cur_type, &cur_num_delta, &check_rc);
             send_application_data(comm, rank, cur_iter, cur_type, cur_num_delta, check_rc);
@@ -440,6 +440,9 @@ int main(int argc, char* argv[])
             /* Reset the counter since last resource change */
             iters_since_last_change = 0;
         }
+        //if(iters_since_last_change == 0){
+        //    printf("Rank %d, main_pset=%s\n", rank, main_pset);
+        //}
         
 
     } /* END OF MAIN APPLICATION LOOP */

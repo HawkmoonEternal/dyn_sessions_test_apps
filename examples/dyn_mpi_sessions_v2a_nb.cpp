@@ -430,7 +430,7 @@ int main(int argc, char* argv[])
                 MPI_Wait(&request, &status);
         
             }
-
+            
             if(MPI_PSETOP_NULL == rc_type || 0 == strcmp(delta_pset, output_psets[0])){
                 iters_since_last_change = 0;
                 continue;

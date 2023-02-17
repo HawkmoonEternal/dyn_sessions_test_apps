@@ -423,6 +423,7 @@ int main(int argc, char* argv[])
                     free_string_array(pset_array, 3);
                     
                 }
+                
                 /* Now again query for the Set operation info */      
                 MPI_Session_dyn_v2b_query_psetop_nb(session, main_pset, main_pset, &rc_handle, &request);
 
