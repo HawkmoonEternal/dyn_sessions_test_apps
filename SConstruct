@@ -20,7 +20,8 @@ vars.AddVariables(
                 allowed_values=(
                     'mpidynres2d',
                     'DynMPISessions_v2a', 'DynMPISessions_v2a_nb',
-                    'DynMPISessions_v2b', 'DynMPISessions_v2b_nb'
+                    'DynMPISessions_v2b', 'DynMPISessions_v2b_nb',
+                    'DynMPISessions_v2a_replace'
                     )
               ),
 
@@ -124,6 +125,8 @@ elif env['example'] == 'DynMPISessions_v2b':
   sourceFiles = ['examples/dyn_mpi_sessions_v2b.cpp']
 elif env['example'] == 'DynMPISessions_v2b_nb':
   sourceFiles = ['examples/dyn_mpi_sessions_v2b_nb.cpp']
+elif env['example'] == 'DynMPISessions_v2a_replace':
+  sourceFiles = ['examples/dyn_mpi_sessions_v2a_replace.cpp']
 
 
 for i in sourceFiles:

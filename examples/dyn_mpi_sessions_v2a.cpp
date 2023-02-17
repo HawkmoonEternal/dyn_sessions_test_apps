@@ -354,7 +354,11 @@ int main(int argc, char* argv[])
                     MPI_Info_create(&info);
 
                     str = itoa(cur_num_delta);
-                    MPI_Info_set(info, "mpi.op_info.info.num_procs", str);
+                    if(cur_type == MPI_PSETOP_ADD){
+                        MPI_Info_set(info, "mpi_num_procs_add", str);
+                    }else{
+                        MPI_Info_set(info, "mpi_num_procs_sub", str);
+                    }
                     free(str);
 
                     noutput = 0;

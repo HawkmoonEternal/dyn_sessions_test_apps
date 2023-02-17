@@ -392,7 +392,11 @@ int main(int argc, char* argv[])
                 if(primary_proc){
                     MPI_Info_create(&info);
                     str = itoa("", cur_num_delta);
-                    MPI_Info_set(info, "mpi.op_info.info.num_procs", str);
+                    if(cur_type == MPI_PSETOP_ADD){
+                        MPI_Info_set(info, "mpi_num_procs_add", str);
+                    }else{
+                        MPI_Info_set(info, "mpi_num_procs_sub", str);
+                    }
                     free(str);
 
                     pset_array = (char **) malloc(3 * sizeof(char *));
